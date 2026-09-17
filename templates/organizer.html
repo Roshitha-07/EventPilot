@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% set page_title='Overview' %}{% set active='home' %}
+{% block content %}
+<div class="hero"><div class="hero-title"><span class="eyebrow">ORGANIZER COMMAND CENTRE</span><h1>Good evening, {{ session.get('name','Organizer') }}.</h1><p>Manage events, participants and operations from one workspace.</p></div><a class="hero-button" href="/dashboard">Open live dashboard →</a></div>
+<div class="section"><div class="section-title"><div><span class="eyebrow">MILESTONE ROADMAP</span><h2>Choose a module from the left navigation</h2><p>Each module opens as a separate page.</p></div></div>
+<div class="milestone-list">
+<div class="milestone-item"><span class="milestone-no">01</span><div><h3>Build Event Intelligence Engine</h3><p>Data, AI agents and alerts.</p></div><a href="/intelligence">Open →</a></div>
+<div class="milestone-item"><span class="milestone-no">02</span><div><h3>Develop Executive Dashboard</h3><p>KPIs, attendance and event health.</p></div><a href="/executive-dashboard">Open →</a></div>
+<div class="milestone-item"><span class="milestone-no">03</span><div><h3>Implement Agent Orchestration</h3><p>Route tasks to the right agent.</p></div><a href="/agent-orchestration">Open →</a></div>
+<div class="milestone-item"><span class="milestone-no">04</span><div><h3>Perform End-to-End Testing</h3><p>Check registration, workflows and dashboards.</p></div><a href="/end-to-end-testing">Open →</a></div>
+<div class="milestone-item"><span class="milestone-no">05</span><div><h3>Deploy Production-Ready Platform</h3><p>Check setup, security and release readiness.</p></div><a href="/deployment">Open →</a></div>
+</div></div>
+<div class="section"><div class="section-title"><div><span class="eyebrow">QUICK ACCESS</span><h2>Event operations</h2></div></div><div class="panel"><div class="quick-nav"><a href="/attendees">Participants</a><a href="/venues">Venues</a><a href="/speakers">Speakers</a><a href="/schedule">Schedule</a><a href="/sponsors">Sponsors</a><a href="/incidents">Incidents</a><a href="/alerts">Alerts</a><a href="/checkin">Check-in</a><a href="/insights">AI Insights</a></div></div></div>
+{% endblock %}

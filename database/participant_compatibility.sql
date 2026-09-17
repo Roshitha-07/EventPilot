@@ -1,0 +1,4 @@
+-- No database migration is required for the participant dashboard fix.
+-- The application now links a logged-in participant to their registration
+-- using the participant email address, which works with both the original
+-- attendees table and the newer table that includes user_id.

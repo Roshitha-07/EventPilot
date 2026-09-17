@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>{{ page_title or 'EventPilot' }} · EventPilot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body class="app-page">
+<div class="app-layout">
+  <aside class="sidebar">
+    <a class="brand" href="{{ '/organizer' if session.get('role')=='organizer' else '/participant' }}">
+      <span class="brand-mark">EP</span><span>EventPilot</span>
+    </a>
+    <div class="workspace-label">{{ 'ORGANIZER CONSOLE' if session.get('role')=='organizer' else 'PARTICIPANT PORTAL' }}</div>
+    {% if session.get('role') == 'organizer' %}
+    <nav class="side-nav">
+      <a href="/organizer" class="{{ 'active' if active=='home' }}"><span>⌂</span>Overview</a>
+      <a href="/dashboard" class="{{ 'active' if active=='dashboard' }}"><span>◈</span>Event Dashboard</a>
+      <a href="/intelligence" class="{{ 'active' if active=='intelligence' }}"><span>✦</span>Event Intelligence</a>
+      <a href="/executive-dashboard" class="{{ 'active' if active=='executive' }}"><span>▦</span>Executive Dashboard</a>
+      <a href="/agent-orchestration" class="{{ 'active' if active=='orchestration' }}"><span>◎</span>Agent Orchestration</a>
+      <div class="nav-section">EVENT SETUP</div>
+      <a href="/attendees" class="{{ 'active' if active=='attendees' }}"><span>♙</span>Participants</a>
+      <a href="/venues" class="{{ 'active' if active=='venues' }}"><span>⌂</span>Venues</a>
+      <a href="/speakers" class="{{ 'active' if active=='speakers' }}"><span>◉</span>Speakers</a>
+      <a href="/schedule" class="{{ 'active' if active=='schedule' }}"><span>◷</span>Schedule</a>
+      <div class="nav-section">OPERATIONS</div>
+      <a href="/sponsors" class="{{ 'active' if active=='sponsors' }}"><span>◆</span>Sponsorship</a>
+      <a href="/sponsors/performance" class="sub {{ 'active' if active=='performance' }}"><span>↗</span>Performance</a>
+      <a href="/incidents" class="{{ 'active' if active=='incidents' }}"><span>!</span>Incident Agent</a>
+      <a href="/incidents/workflows" class="sub {{ 'active' if active=='workflows' }}"><span>≡</span>Workflows</a>
+      <a href="/alerts" class="{{ 'active' if active=='alerts' }}"><span>●</span>Operational Alerts{% if counts and counts.alerts %}<em>{{ counts.alerts }}</em>{% endif %}</a>
+      <a href="/checkin" class="{{ 'active' if active=='checkin' }}"><span>✓</span>Check-in</a>
+      <div class="nav-section">INTELLIGENCE & DELIVERY</div>
+      <a href="/insights" class="{{ 'active' if active=='insights' }}"><span>⌁</span>AI Insights</a>
+      <a href="/end-to-end-testing" class="{{ 'active' if active=='testing' }}"><span>✓</span>End-to-End Testing</a>
+      <a href="/deployment" class="{{ 'active' if active=='deployment' }}"><span>⇧</span>Deployment</a>
+    </nav>
+    {% else %}
+    <nav class="side-nav">
+      <a href="/participant" class="{{ 'active' if active=='participant' }}"><span>⌂</span>Overview</a>
+      <a href="/participant/dashboard" class="{{ 'active' if active=='p-dashboard' }}"><span>▦</span>My Dashboard</a>
+      <a href="/register" class="{{ 'active' if active=='register' }}"><span>＋</span>Event Registration</a>
+      <a href="/participant/checkin" class="{{ 'active' if active=='p-checkin' }}"><span>✓</span>My Check-in</a>
+      <a href="/participant/attendees" class="{{ 'active' if active=='p-attendees' }}"><span>♙</span>Event Participants</a>
+      <a href="/participant/insights" class="{{ 'active' if active=='p-insights' }}"><span>✦</span>AI Insights</a>
+    </nav>
+    {% endif %}
+    <div class="sidebar-bottom">
+      <div class="user-mini"><span class="avatar">{{ (session.get('name') or 'U')[0]|upper }}</span><div><b>{{ session.get('name') or 'Guest' }}</b><small>{{ session.get('role','user')|capitalize }}</small></div></div>
+      <a class="logout-link" href="/logout">↪ Sign out</a>
+    </div>
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="crumb"><span>EventPilot</span><b>/</b><strong>{{ page_title or 'Overview' }}</strong></div>
+      <div class="top-actions"><span class="status-dot">● System online</span><span class="top-user">{{ session.get('name') or 'Guest' }}</span><a href="/logout">Logout</a></div>
+    </header>
+    <main class="page-content">
+      {% with messages = get_flashed_messages() %}{% if messages %}<div class="flash-message">{{ messages[-1] }}</div>{% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% block scripts %}{% endblock %}
+</body>
+</html>

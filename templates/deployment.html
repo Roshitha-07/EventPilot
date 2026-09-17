@@ -1,0 +1,33 @@
+{% extends 'base.html' %}{% set page_title='Deployment' %}{% set active='deployment' %}
+{% block content %}
+<div class="page-head">
+  <div><span class="eyebrow"></span><h1>Deployment</h1><p>Check the project before release and open the project guide.</p></div>
+  <a class="hero-button" href="{{ url_for('deployment_guide_pdf') }}">Download PDF ↓</a>
+</div>
+<div class="section grid-2">
+  <div class="panel">
+    <div class="panel-head"><h2>Release checklist</h2><span>SHORT VIEW</span></div>
+    <div class="list">
+      {% for item in ['Frontend ready','Flask backend ready','MySQL connected','Environment variables set','Login and security checked','APIs configured','Error handling checked','Logs and monitoring ready','Registration and check-in tested','Documentation available'] %}
+      <div class="list-row"><b>{{ item }}</b><span class="tag blue">TODO</span></div>
+      {% endfor %}
+    </div>
+    <form method="post" style="margin-top:18px"><button class="hero-button" type="submit">Run readiness check</button></form>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2>Deployment layers</h2><span>4 PARTS</span></div>
+    <div class="list">
+      <div class="list-row"><div><b>1. Frontend</b><small>HTML, CSS and JavaScript</small></div></div>
+      <div class="list-row"><div><b>2. Backend</b><small>Flask routes and agents</small></div></div>
+      <div class="list-row"><div><b>3. Database</b><small>MySQL tables and data</small></div></div>
+      <div class="list-row"><div><b>4. Monitoring</b><small>Logs, alerts and backups</small></div></div>
+    </div>
+    {% if readiness %}
+    <div class="panel-head" style="margin-top:20px"><h2>Readiness result</h2><span>LIVE CHECK</span></div>
+    <div class="list">
+      {% for name, passed in readiness %}<div class="list-row"><b>{{ name }}</b><span class="tag {{ 'green' if passed else 'red' }}">{{ 'PASS' if passed else 'CHECK' }}</span></div>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
